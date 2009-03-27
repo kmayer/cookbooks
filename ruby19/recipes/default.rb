@@ -29,5 +29,7 @@ user "root"
   ./configure --disable-install-doc
   make
   make install
+  ln -s /usr/local/bin/ruby /usr/bin/ruby1.9
   EOH
+not_if do File.exists?("/usr/bin/ruby1.9")
 end
