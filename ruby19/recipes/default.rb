@@ -21,7 +21,7 @@ include_recipe "build-essential"
 
 remote_file "ruby19" do
   path "/tmp/ruby19.tar.gz"
-  source "ftp://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.1-p0.tar.gz"
+  source "http://hw-packages.s3.amazonaws.com/ruby-1.9.1-p0.tar.gz"
 end
 
 bash "untar-ruby19" do
