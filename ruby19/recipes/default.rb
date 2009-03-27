@@ -19,15 +19,11 @@
 
 include_recipe "build-essential"
 
-remote_file "ruby19" do
-  path "/tmp/ruby-1.9.1-p0.tar.gz"
-  source "http://hw-packages.s3.amazonaws.com/ruby-1.9.1-p0.tar.gz"
-end
-
 bash "install-ruby19" do
 user "root"
   cwd "/tmp"
-  code <<-EOH 
+  code <<-EOH
+  wget http://hw-packages.s3.amazonaws.com/ruby-1.9.1-p0.tar.gz
   tar -zxf ruby-1.9.1-p0.tar.gz
   cd ruby-1.9.1-p0
   ./configure
