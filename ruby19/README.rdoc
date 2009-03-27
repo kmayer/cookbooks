@@ -12,7 +12,7 @@ Tested on Ubuntu 8.10
 
 Opscode cookbooks, http://github.com/opscode/cookbooks/tree/master:
 
-* build-essentials
+* build-essential
  
 = ATTRIBUTES: 
  

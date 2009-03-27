@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe "build-essentials"
+include_recipe "build-essential"
 
 remote_file "ruby19" do
   path "/tmp/ruby19.tar.gz"
