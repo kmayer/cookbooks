@@ -26,7 +26,7 @@ user "root"
   wget http://hw-packages.s3.amazonaws.com/ruby-1.9.1-p0.tar.gz
   tar -zxf ruby-1.9.1-p0.tar.gz
   cd ruby-1.9.1-p0
-  ./configure
+  ./configure --disable-install-doc
   make
   make install
   EOH
