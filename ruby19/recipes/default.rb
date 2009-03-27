@@ -31,5 +31,5 @@ user "root"
   make install
   ln -s /usr/local/bin/ruby /usr/bin/ruby1.9
   EOH
-not_if do File.exists?("/usr/bin/ruby1.9")
+not_if do File.exists?("/usr/bin/ruby1.9") end
 end
