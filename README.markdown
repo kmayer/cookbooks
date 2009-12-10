@@ -6,13 +6,13 @@
 
     sudo apt-get install chef ohai ruby-full rubygems build-essential
 
-## Select recipes to run
+## Select recipes
 
-Edit /etc/chef/node.json and include a similar line
+Edit /etc/chef/node.json with a list of recipes
 
     { "recipes": [ "developers", "sshd" ] }
 
-## Running Heavy Water recipes
+## Running recipes
 
     sudo chef-solo --log_level info --json-attributes /etc/chef/node.json \
       --recipe-url http://hw-public.s3.amazonaws.com/cookbooks.tgz
