@@ -15,4 +15,4 @@ Edit /etc/chef/node.json and include a similar line
 ## Running Heavy Water recipes
 
     sudo chef-solo --log_level info --json-attributes /etc/chef/node.json \
-      --recipe-url http://hw-public.s3.amazonaws.com/cookbooks.tgz`
+      --recipe-url http://hw-public.s3.amazonaws.com/cookbooks.tgz
