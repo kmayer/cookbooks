@@ -9,13 +9,10 @@ dirs.each do |d|
   end
 end
 
-file "/var/www/.ssh/authorized_keys" do
-  action :delete
-end
-
 node[:developers][:usernames].each do |username|
   execute "add #{username} key to www-data" do
     command "cat /home/#{username}/.ssh/authorized_keys >> /var/www/.ssh/authorized_keys"
+    not_if "grep -f /home/#{username}/.ssh/authorized_keys /var/www/.ssh/authorized_keys"
     action :run
   end
 end
