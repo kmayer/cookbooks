@@ -14,7 +14,8 @@ node[:developers][:usernames].each do |username|
   end
   
   remote_file "/home/#{username}/.ssh/authorized_keys" do
-    source "http://hw-public.s3.amazonaws.com/keys/#{username}.pub"
+    keys_uri = node[:developers][:keys_uri]
+    source "#{keys_uri}#{username}.pub"
     owner "#{username}"
     group "#{username}"
     mode 0644
