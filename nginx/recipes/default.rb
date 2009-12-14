@@ -62,7 +62,7 @@ end
 execute "install nginx" do
   command "make install"
   cwd "/usr/src/nginx-#{nginx_version}"
-  #only_if "expr `/usr/sbin/nginx -v 2>&1 | tr -d \"nginx version: nginx/\"` \< \"#{nginx_version}\""
+  only_if do nginx_version > `/usr/sbin/nginx -v 2>&1`.strip.split('/')[1] end
   notifies :restart, resources(:service => "nginx")
   action :run
 end
