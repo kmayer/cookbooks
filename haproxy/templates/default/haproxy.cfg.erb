@@ -1,0 +1,30 @@
+global
+  log 127.0.0.1	local0
+  log 127.0.0.1	local1 notice
+  chroot /usr/share/haproxy
+  maxconn 4096
+  user haproxy
+  group haproxy
+  daemon
+
+defaults
+  log	global
+  mode http
+  option  httplog
+  option  dontlognull
+  option redispatch
+  retries 3
+  maxconn 2000
+  contimeout 300000
+  clitimeout 300000
+  srvtimeout 300000
+
+listen app 127.0.0.1:8080
+  balance roundrobin
+<% (5000..@highest_port).each do |server| -%>
+    server thin-<%= server %> localhost:<%= server %> maxconn 1 check
+<% end -%>
+
+listen admin 127.0.0.1:9100
+  mode http
+  stats uri /
