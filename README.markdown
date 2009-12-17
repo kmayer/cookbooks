@@ -10,7 +10,7 @@
 
 Edit /etc/chef/node.json with a list of recipes
 
-    { "recipes": [ "developers", "sshd" ] }
+    { "recipes": [ "developers", "security" ] }
 
 ## Running recipes
 
