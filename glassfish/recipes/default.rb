@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
+include_recipe "java"
 
 group node[:glassfish][:systemgroup] do
 end
@@ -31,11 +32,11 @@ end
 remote_file "/tmp/glassfish.sh" do
   owner node[:glassfish][:systemuser]
   source node[:glassfish][:fetch_url]
-  mode "0744"
+  mode 0744
   checksum "6d4a20f14de"
 end
 
-answer_file = "/tmp/v3-prelude-answer"
+answer_file = "/tmp/v3-answer"
 
 template answer_file do
   owner node[:glassfish][:systemuser]
@@ -45,7 +46,7 @@ end
 directory node[:glassfish][:INSTALL_HOME] do
   owner node[:glassfish][:systemuser]
   group node[:glassfish][:systemgroup]
-  mode "0755"
+  mode 0755
   action :create
   recursive true
 end
@@ -63,7 +64,7 @@ end
 
 template "/etc/init.d/glassfish" do
   source "glassfish-init.d-script.erb"
-  mode "0755"
+  mode 0755
 end
 
 service "glassfish" do
