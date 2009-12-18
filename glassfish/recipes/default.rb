@@ -58,10 +58,6 @@ execute "install-glassfish" do
   action :run
 end
 
-file answer_file do
-  action :delete
-end
-
 template "/etc/init.d/glassfish" do
   source "glassfish-init.d-script.erb"
   mode 0755
