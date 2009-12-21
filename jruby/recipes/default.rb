@@ -11,25 +11,15 @@ end
 
 execute "untar jruby" do
   command "tar -C /opt -xzf jruby-src-1.4.0.tar.gz"
-  creates "/tmp/jruby-1.4.0/README"
+  creates "/opt/jruby-1.4.0/README"
   cwd "/tmp"
   action :run
 end
 
 execute "build jruby" do
   command "ant"
-  creates "jruby-1.4.0/lib/jruby.jar"
   cwd "/opt/jruby-1.4.0"
-  action :run
-end
-
-execute "jgem install jruby-openssl" do
-  command "jgem install jruby-openssl"
-  action :run
-end
-
-execute "jgem clean" do
-  command "jgem clean"
+  creates "/opt/jruby-1.4.0/lib/jruby.jar"
   action :run
 end
 
@@ -47,4 +37,10 @@ end
 
 link "/usr/bin/jgem" do
   to "/opt/jruby/bin/jgem"
+end
+
+execute "jgem install jruby-openssl" do
+  command "jgem install jruby-openssl"
+  creates "/opt/jruby-1.4.0/lib/ruby/gems/1.8/gems/jruby-openssl-0.6/README.txt"
+  action :run
 end
