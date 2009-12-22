@@ -3,7 +3,7 @@ remote_file "/tmp/#{node[:ree][:deb]}" do
   checksum "c6d1489b"
 end
 
-dpkg_package "ruby-enterprise" do
-  source "/tmp/#{node[:ree][:deb]}"
-  action :upgrade 
+execute "ruby-enterprise" do
+  command "dpkg -i /tmp/#{node[:ree][:deb]}"
+  not_if do `ruby --version`.include? "Ruby Enterprise Edition" end
 end
