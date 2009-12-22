@@ -1,5 +1,4 @@
 include_recipe "nginx"
-include_recipe "unicorn"
 
 file "/etc/nginx/sites-enabled/default" do
   action :delete

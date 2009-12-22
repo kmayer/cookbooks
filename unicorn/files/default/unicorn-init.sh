@@ -9,14 +9,14 @@ set -e
 # Feel free to change any of the following variables for your app:
 APP_ROOT=/var/www/current
 PID=/var/run/unicorn.pid
-CMD="/usr/local/bin/unicorn_rails -D -c /etc/unicorn/app.rb"
+CMD="/usr/bin/unicorn_rails --daemonize --env production --config-file /etc/unicorn/app.rb"
 #INIT_CONF=$APP_ROOT/config/init.conf
  
 #test -f "$INIT_CONF" && . $INIT_CONF
  
 old_pid="$PID.oldbin"
  
-cd $APP_ROOT || echo >&2 "'$APP_ROOT' does not exist" && exit 0
+cd $APP_ROOT || exit 1
  
 sig () {
 	test -s "$PID" && kill -$1 `cat $PID`
