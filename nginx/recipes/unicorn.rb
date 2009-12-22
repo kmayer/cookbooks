@@ -1,14 +1,15 @@
 include_recipe "nginx"
 
-file "/etc/nginx/sites-enabled/default" do
-  action :delete
-end
+conf = "unicorn-app.erb"
 
-link "/etc/nginx/sites-enabled/app" do
-  to "/etc/nginx/sites-available/app"
+if node[:nginx][:ssl] == "true"
+  conf = "unicorn-app-ssl.erb"
 end
 
 template "/etc/nginx/sites-available/app" do
-  source "unicorn-app.erb"
+  source conf
+  owner "root"
+  group "root"
+  mode "644"
   notifies :restart, resources(:service => "nginx")
 end

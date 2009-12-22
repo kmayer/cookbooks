@@ -15,6 +15,28 @@ directory "/var/www/nginx-default" do
   action :delete
 end
 
+file "/etc/nginx/sites-enabled/default" do
+  action :delete
+end
+
+link "/etc/nginx/sites-enabled/app" do
+  to "/etc/nginx/sites-available/app"
+end
+
+remote_file "/etc/nginx/ssl.cert" do
+  source "bogus.cert"
+  owner "root"
+  group "root"
+  mode 0644
+end
+
+remote_file "/etc/nginx/ssl.key" do
+  source "bogus.key"
+  owner "root"
+  group "root"
+  mode 0600
+end
+
 remote_file "/usr/src/nginx-#{nginx_version}.tar.gz" do
   source "http://sysoev.ru/nginx/nginx-#{nginx_version}.tar.gz"
   mode 0644
