@@ -1,6 +1,5 @@
 include_recipe "haproxy"
 include_recipe "nginx"
-include_recipe "www-data"
 
 file "/etc/nginx/sites-enabled/default" do
   action :delete
@@ -15,7 +14,7 @@ template "/etc/nginx/sites-available/app" do
   notifies :restart, resources(:service => "nginx")
 end
 
-if node[:frontend][:ssl] == "true"
+if node[:nginx][:ssl] == "true"
   link "/etc/nginx/sites-enabled/app-ssl" do
     to "/etc/nginx/sites-available/app-ssl"
   end
