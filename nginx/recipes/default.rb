@@ -28,6 +28,7 @@ remote_file "/etc/nginx/ssl.cert" do
   owner "root"
   group "root"
   mode 0644
+  not_if "test -f /etc/nginx/ssl.cert"
 end
 
 remote_file "/etc/nginx/ssl.key" do
@@ -35,6 +36,7 @@ remote_file "/etc/nginx/ssl.key" do
   owner "root"
   group "root"
   mode 0600
+  not_if "test -f /etc/nginx/ssl.key"
 end
 
 remote_file "/usr/src/nginx-#{nginx_version}.tar.gz" do
