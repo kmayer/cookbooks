@@ -1,4 +1,5 @@
 include_recipe "nginx"
+include_recipe "unicorn"
 
 file "/etc/nginx/sites-enabled/default" do
   action :delete
@@ -9,6 +10,6 @@ link "/etc/nginx/sites-enabled/app" do
 end
 
 template "/etc/nginx/sites-available/app" do
-  source "app.erb"
+  source "unicorn-app.erb"
   notifies :restart, resources(:service => "nginx")
 end

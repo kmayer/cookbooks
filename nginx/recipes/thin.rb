@@ -10,7 +10,7 @@ link "/etc/nginx/sites-enabled/app" do
 end
 
 template "/etc/nginx/sites-available/app" do
-  source "app.erb"
+  source "thin-app.erb"
   notifies :restart, resources(:service => "nginx")
 end
 
@@ -20,7 +20,7 @@ if node[:nginx][:ssl] == "true"
   end
   
   template "/etc/nginx/sites-available/app-ssl" do
-    source "app-ssl.erb"
+    source "thin-app-ssl.erb"
     notifies :restart, resources(:service => "nginx")
   end
 end
