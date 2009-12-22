@@ -16,7 +16,7 @@ CMD="/usr/local/bin/unicorn_rails -D -c /etc/unicorn/app.rb"
  
 old_pid="$PID.oldbin"
  
-cd $APP_ROOT || exit 1
+cd $APP_ROOT || echo >&2 "'$APP_ROOT' does not exist" && exit 0
  
 sig () {
 	test -s "$PID" && kill -$1 `cat $PID`
