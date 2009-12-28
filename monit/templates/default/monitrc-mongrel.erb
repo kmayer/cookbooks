@@ -1,0 +1,20 @@
+set daemon 30
+set logfile syslog facility log_daemon 
+set mailserver localhost
+set alert <%= @email %> only on { timeout }
+
+set httpd port 2812
+  and use the address localhost
+  allow localhost
+
+<% (@start_port..@end_port).each do |port| -%>
+  check process mongrel_<%= port %>
+    with pidfile /var/www/shared/pids/mongrel.<%= port %>.pid
+    start program = "/usr/bin/mongrel_rails cluster::start --only <%= port %> --config /etc/mongrel_cluster/app.yml --clean"
+    stop program  = "/bin/bash -c 'kill -9 $(cat /var/www/shared/pids/mongrel.<%= port %>.pid)'"
+    if totalmem > 225 MB for 4 cycles then restart
+    if failed port <%= port %> then restart
+    if cpu usage > 70% for 4 cycles then restart
+    if 10 restarts within 10 cycles then timeout
+    group mongrel
+<% end -%>
