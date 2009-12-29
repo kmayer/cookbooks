@@ -1,0 +1,7 @@
+set_unless[:rubyrep][:version] = '1.1.0'
+set_unless[:rubyrep][:adapter] = 'postgresql'
+set_unless[:rubyrep][:database_name] = 'database'
+set_unless[:rubyrep][:username] = 'username'
+set_unless[:rubyrep][:password] = 'password'
+set_unless[:rubyrep][:right_host] = 'some_host.example.com'
+set_unless[:rubyrep][:left_host] = 'another_host.example.com'

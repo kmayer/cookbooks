@@ -1,0 +1,37 @@
+#! /bin/sh
+#
+# /etc/init.d/rubyrep
+#
+# chkconfig: 35 99 99
+# description: Starts or stops the rubyrep replication
+#
+# Assumes that application specific files
+# * replication launcher script
+# * rubyrep configuration file
+# * rubyrep log file
+# * rubyrep JRuby package
+# are kept in /opt/rubyrep
+ 
+case "$1" in
+    start)
+        echo "Starting rubyrep replication"
+        bash /opt/rubyrep/replicate 2>&1 |gawk '{print strftime("%Y-%m-%d %T",systime()),$0; fflush();}' >>/var/log/rubyrep.log &
+        ;;
+    stop)
+        echo "Shutting down rubyrep replication"
+        kill `ps -Af |grep rubyrep|grep replicate |grep java |awk '{print $2}'`
+        ;;
+    restart)
+        $0 stop
+        $0 start
+        ;;
+    status)
+        echo -e "rubyrep replication \\c"
+        ps -Af |grep rubyrep|grep replicate |grep java >/dev/null || echo -e not \\c
+        echo running
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|status}"
+        exit 1
+        ;;
+esac

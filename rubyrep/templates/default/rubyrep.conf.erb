@@ -1,0 +1,27 @@
+RR::Initializer::run do |config|
+  config.left = {
+    :adapter  => '<%= @adapter %>', 
+    :database => '<%= @database_name %>',
+    :username => '<%= @username %>',
+    :password => '<%= @password %>',
+    :host     => '<%= @left_host %>'
+  }
+    
+  config.right = {
+    :adapter  => '<%= @adapter %>', 
+    :database => '<%= @database_name %>',
+    :username => '<%= @username %>',
+    :password => '<%= @password %>',
+    :host     => '<%= @right_host %>'
+  }
+  
+  config.include_tables /./
+  config.exclude_tables 'schema_migrations'
+  
+  # --- more specific configurations ---
+  # config.options[:right_record_handling] = :ignore 
+  # config.options[:sync_conflict_handling] = :left_wins 
+  # config.options[:right_change_handling] = :ignore 
+  # config.options[:replication_conflict_handling] = :left_wins 
+  # config.options[:database_connection_timeout] = 90 
+end

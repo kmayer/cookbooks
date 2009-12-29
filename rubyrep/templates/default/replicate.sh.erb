@@ -1,0 +1,10 @@
+#! /bin/sh
+#
+# Launches rubyrep replication.
+#
+# Assumes that
+# * rubyrep configuration file
+# * rubyrep JRuby package
+# are kept in /opt/rubyrep
+ 
+bash /opt/rubyrep/rubyrep replicate -c /etc/rubyrep/rubyrep.conf
