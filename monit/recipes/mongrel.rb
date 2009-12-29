@@ -15,6 +15,6 @@ template "/etc/monit/monitrc" do
   variables (
     :start_port => node[:monit][:start_port].to_i,
     :end_port => end_port,
-    :email => node[:monit][:email] )
+    :email => node[:monit][:email])
   notifies :restart, resources(:service => "monit")
 end
