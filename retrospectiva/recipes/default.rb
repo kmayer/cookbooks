@@ -1,9 +1,11 @@
 include_recipe "git"
 include_recipe "rake"
 include_recipe "www-data"
+include_recipe "postfix"
 include_recipe "unicorn"
 include_recipe "nginx::unicorn"
 include_recipe "postgresql::server"
+include_recipe "postgresql::create"
 include_recipe "postgresql::ruby-pg"
 
 %w(rails will_paginate acts-as-taggable-on RedCloth).each do |g|
@@ -19,32 +21,15 @@ execute "clone retrospectiva" do
   group "www-data"
 end
 
-execute "create retrospectiva database user" do
-  command "createuser --no-createdb --no-createrole --no-superuser retrospectiva && \
-    psql --command \"alter role retrospectiva with encrypted password 'retrospectiva'\""
-  user "postgres"
-  not_if do 
-    `sudo -u postgres psql --tuples-only --command=" \
-      select rolname from pg_roles where \
-      rolname = 'retrospectiva'"`.strip == "retrospectiva"
-  end 
-end
-
-execute "create retrospectiva database" do
-  command "createdb --owner=retrospectiva retrospectiva"
-  user "postgres"
-  not_if do 
-    `sudo -u postgres psql --tuples-only --command=" \
-      select datname from pg_database where \
-      datname = 'retrospectiva'"`.strip == "retrospectiva"
-  end  
-end
-
 template "/var/www/current/config/database.yml" do
   source "database.yml.erb"
   owner "www-data"
   group "www-data"
   mode "644"
+  variables( 
+    :db_name => node[:postgresql][:db_name],
+    :username => node[:postgresql][:username],
+    :password => node[:postgresql][:password])
   notifies :restart, resources(:service => "unicorn")
 end
 
@@ -57,4 +42,3 @@ execute "setup retrospectiva database" do
     where tablename = 'tickets'" retrospectiva`.strip == "tickets"
   end
 end
-
