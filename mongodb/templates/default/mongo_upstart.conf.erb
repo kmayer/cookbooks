@@ -1,0 +1,13 @@
+# Ubuntu upstart file at /etc/init/mongo.conf
+# Presumes installation of mongodb is in /opt/mongo/
+
+pre-start script
+    mkdir -p /var/lib/mongo/
+    mkdir -p /var/log/mongo/
+end script
+
+start on runlevel [345]
+
+exec /usr/bin/mongod --config /etc/mongo/mongo.conf
+
+respawn
