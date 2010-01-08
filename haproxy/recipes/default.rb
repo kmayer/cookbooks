@@ -6,13 +6,13 @@ template "/etc/default/haproxy" do
   source "haproxy-default.erb"
   owner "root"
   group "root"
-  mode 0644
+  mode "644"
 end
 
 directory "/usr/share/haproxy" do
   owner "root"
   group "root"
-  mode 0755
+  mode "755"
   action :create
 end
 
@@ -25,7 +25,7 @@ template "/etc/haproxy/haproxy.cfg" do
   source "haproxy.cfg.erb"
   owner "root"
   group "root"
-  mode 0644
+  mode "644"
   variables :highest_port => node[:haproxy][:servers].to_i + 5000
   notifies :restart, resources(:service => "haproxy")
 end
