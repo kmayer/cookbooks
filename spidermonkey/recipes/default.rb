@@ -18,6 +18,7 @@ execute "build spidermonkey" do
   command "make -f Makefile.ref"
   cwd "/tmp/js/src"
   environment "CFLAGS" => "-DJS_C_STRINGS_ARE_UTF8"
+  creates "/usr/bin/js"
   action :run
 end
 
@@ -25,5 +26,6 @@ execute "install spidermonkey" do
   command "make -f Makefile.ref export"
   cwd "/tmp/js/src"
   environment "JS_DIST" => "/usr"
+  creates "/usr/bin/js"
   action :run
 end
