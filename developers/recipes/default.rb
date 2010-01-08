@@ -8,9 +8,23 @@ node[:developers][:usernames].each do |username|
     directory d do
       owner "#{username}"
       group "#{username}"
-      mode 0755
+      mode "755"
       action :create
     end
+  end
+  
+  template "/home/#{username}/.profile" do
+    source "profile.erb"
+    owner "#{username}"
+    group "#{username}"
+    mode "644"
+  end
+  
+  template "/home/#{username}/.bashrc" do
+    source "bashrc.erb"
+    owner "#{username}"
+    group "#{username}"
+    mode "644"
   end
   
   remote_file "/home/#{username}/.ssh/authorized_keys" do
@@ -18,7 +32,7 @@ node[:developers][:usernames].each do |username|
     source "#{keys_uri}#{username}.pub"
     owner "#{username}"
     group "#{username}"
-    mode 0644
+    mode "644"
   end
 end
 
