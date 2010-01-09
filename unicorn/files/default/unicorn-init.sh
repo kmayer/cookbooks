@@ -8,7 +8,7 @@ set -e
  
 # Feel free to change any of the following variables for your app:
 APP_ROOT=/var/www/current
-PID=/var/run/unicorn.pid
+PID=/var/www/shared/pids/unicorn.pid
 CMD="/usr/bin/unicorn_rails --daemonize --env production --config-file /etc/unicorn/app.rb"
 #INIT_CONF=$APP_ROOT/config/init.conf
  
