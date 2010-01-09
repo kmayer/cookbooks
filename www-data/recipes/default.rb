@@ -4,7 +4,7 @@ dirs.each do |d|
   directory d do
     owner "www-data"
     group "www-data"
-    mode 0755
+    mode "755"
     action :create
   end
 end
@@ -20,5 +20,12 @@ end
 file "/var/www/.ssh/authorized_keys" do
   owner "www-data"
   group "www-data"
-  mode 0644
+  mode "644"
+end
+
+remote_file "/var/www-data/.ssh/known_hosts" do
+  source "github-known_hosts"
+  owner "www-data"
+  group "www-data"
+  mode "644"
 end
