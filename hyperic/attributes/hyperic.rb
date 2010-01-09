@@ -12,6 +12,6 @@ set_unless[:hyperic][:server_uri] = "http://downloads.sourceforge.net/project/hy
 set_unless[:hyperic][:server_checksum] = "ae665549"
 
 # this collides across cookbooks. need to discover the correct way to create a database
-set[:postgresql][:db_name] = 'HQ'
-set[:postgresql][:username] = 'admin'
-set[:postgresql][:password] = 'hqadmin'
+# set[:postgresql][:db_name] = 'HQ'
+# set[:postgresql][:username] = 'admin'
+# set[:postgresql][:password] = 'hqadmin'
