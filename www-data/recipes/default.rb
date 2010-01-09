@@ -23,7 +23,7 @@ file "/var/www/.ssh/authorized_keys" do
   mode "644"
 end
 
-remote_file "/var/www-data/.ssh/known_hosts" do
+remote_file "/var/www/.ssh/known_hosts" do
   source "github-known_hosts"
   owner "www-data"
   group "www-data"
