@@ -83,6 +83,7 @@ end
 
 execute "start mongodb" do
   command "start mongo"
+  ignore_failure true
   action :run
 end
 
