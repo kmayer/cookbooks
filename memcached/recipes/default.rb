@@ -12,7 +12,6 @@ remote_file "/etc/default/memcached" do
   owner "root"
   group "root"
   mode "644"
-  notifies :restart, resources(:service => "memcached")
 end
 
 template "/etc/memcached.conf" do
