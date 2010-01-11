@@ -2,13 +2,6 @@ package "memcached" do
   action :upgrade
 end
 
-remote_file "/etc/memcached.conf" do
-  source "memcached.conf"
-  owner "root"
-  group "root"
-  mode "644"
-end
-
 template "/etc/memcached.conf" do
   source "memcached.conf.erb"
   mode "644"
