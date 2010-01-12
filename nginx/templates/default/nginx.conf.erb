@@ -4,14 +4,14 @@ worker_processes 1;
 error_log /var/log/nginx/error.log;
 pid /var/run/nginx.pid;
 
-events {
-  worker_connections 1024;
-}
+events { worker_connections 1024; }
 
 http {
   include /etc/nginx/mime.types;
 
-  access_log /var/log/nginx/access.log;
+  log_format <%= @log_format_name %> <%= @log_format %>;
+
+  access_log /var/log/nginx/access.log <%= @log_format_name %>;
 
   sendfile on;
   tcp_nopush on;
