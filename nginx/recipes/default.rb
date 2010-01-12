@@ -97,7 +97,7 @@ template "/etc/nginx/nginx.conf" do
   owner "root"
   group "root"
   mode "644"
-  variables (
+  variables(
     :log_format_name => node[:nginx][:log_format_name],
     :log_format => node[:nginx][:log_format])
   notifies :reload, resources(:service => "nginx")
