@@ -91,3 +91,11 @@ execute "install nginx" do
   notifies :start, resources(:service => "nginx")
   action :run
 end
+
+template "/etc/nginx/nginx.conf" do
+  source "nginx.conf.erb"
+  owner "root"
+  group "root"
+  mode "644"
+  notifies :reload, resources(:service => "nginx")
+end
