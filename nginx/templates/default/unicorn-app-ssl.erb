@@ -18,7 +18,9 @@ server {
   ssl_certificate_key /etc/nginx/ssl.key;
   ssl_ciphers HIGH;
   ssl_protocols SSLv3 TLSv1;
-  ssl_prefer_server_ciphers on;
+  
+  # breaks osx/chrome :-( 
+  # ssl_prefer_server_ciphers on;
 
   location / {
     proxy_set_header X-Real-IP  $remote_addr;
