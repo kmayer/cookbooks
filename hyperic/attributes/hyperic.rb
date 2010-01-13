@@ -27,4 +27,13 @@ set_unless[:postgresql][:password] = 'hqadmin'
   }
 }
 
+{ 
+  "recipes": [  "hyperic::agent" ],
+  "hyperic": { 
+    "login":  "hqadmin", 
+    "password": "hqadmin", 
+    "server": "monitor.heavyater.ca" 
+  }
+}
+
 =end

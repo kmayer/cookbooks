@@ -41,27 +41,14 @@ execute "untar hyperic-hq-agent" do
   creates "#{agent_home}/bin/hq-agent.sh"  
 end
 
-template "/etc/default/hq-agent" do
-  source "hq-agent.erb"
-  mode "644"
+template "/etc/init.d/hq-agent" do
+  source "hq-agent-init.sh.erb"
+  mode "755"
   owner "root"
   group "root"
-  variables :path => agent_home
-end
-
-link "/etc/init.d/hq-agent" do
-  to "#{agent_home}-#{node[:hyperic][:version]}/bin/hq-agent.sh"
-end
-
-# starting hq-agent manually for the moment
-execute "start hq-agent" do
-  cwd "/home/hyperic"
-  user "hyperic"
-  environment "JAVA_HOME" => "/usr"
-  command "hyperic-hq-agent/bin/hq-agent.sh start"
 end
 
 service "hq-agent" do
   supports :start => true, :stop => true
-  action :enable
+  action [:enable, :start]
 end
