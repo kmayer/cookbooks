@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# no luck setting user or env so cheating here
+export JAVA_HOME=/usr
+
+trap cleanup 0 1 2 3 6
+
+cleanup()
+{
+  reset -IQ
+  exit
+}
+
+cd `dirname $0`
+INSTALLBASE=`pwd`
+${INSTALLBASE}/installer-4.2.0/bin/hq-setup.sh $@
