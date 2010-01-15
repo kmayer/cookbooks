@@ -1,3 +1,4 @@
+set_unless[:nginx][:path] = "/usr/sbin"
 set_unless[:nginx][:version] = "0.7.64"
 set_unless[:nginx][:ssl] = "false"
 set_unless[:nginx][:log_format_name] = "default"
