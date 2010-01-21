@@ -10,7 +10,7 @@ set httpd port 2812
 <% (@start_port..@end_port).each do |port| -%>
   check process mongrel_<%= port %>
     with pidfile /var/www/shared/pids/mongrel.<%= port %>.pid
-    start program = "/usr/bin/mongrel_rails cluster::start --only <%= port %> --config /etc/mongrel_cluster/app.yml --clean"
+    start program = "/usr/bin/mongrel_rails cluster::start --only <%= port %> --config /etc/mongrel/app.yml --clean"
     stop program  = "/bin/bash -c 'kill -9 $(cat /var/www/shared/pids/mongrel.<%= port %>.pid)'"
     if totalmem > 225 MB for 4 cycles then restart
     if failed port <%= port %> then restart
