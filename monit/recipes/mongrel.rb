@@ -5,7 +5,7 @@ template "/etc/monit/monitrc" do
   owner "root"
   group "root"
   mode "600"
-  only_if "test -f /etc/mongrel_cluster/app.yml"
+  only_if "test -f /etc/mongrel/app.yml"
   end_port = node[:monit][:start_port].to_i + node[:monit][:servers].to_i - 1
   variables(
     :start_port => node[:monit][:start_port].to_i,
