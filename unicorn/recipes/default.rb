@@ -9,18 +9,19 @@ directory "/etc/unicorn" do
   action :create
 end
 
-remote_file "/etc/unicorn/app.rb" do
-  source "unicorn.rb"
-  owner "root"
-  group "root"
-  mode "644"
-end
-
-remote_file "/etc/init.d/unicorn" do
-  source "unicorn-init.sh"
+template "/etc/init.d/unicorn" do
+  source "/etc/init.d/unicorn-init.sh.erb"
   owner "root"
   group "root"
   mode "755"
+end
+
+template "/etc/unicorn/app.rb" do
+  source "unicorn.rb.erb"
+  owner "root"
+  group "root"
+  mode "644"
+  notifies :restart, resources(:service => "unicorn")
 end
 
 link "/usr/bin/unicorn" do
