@@ -1,10 +1,5 @@
 include_recipe "monit"
 
-link "/usr/bin/mongrel_rails" do
-  to "/usr/local/bin/mongrel_rails"
-  only_if "test -f /usr/local/bin/mongrel_rails"
-end
-
 template "/etc/monit/monitrc" do
   source "monitrc-mongrel.erb"
   owner "root"
