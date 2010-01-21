@@ -12,9 +12,9 @@ template "/etc/monit/monitrc" do
   mode "600"
   only_if "test -f /etc/mongrel_cluster/app.yml"
   end_port = node[:monit][:start_port].to_i + node[:monit][:servers].to_i - 1
-  variables (
+  variables(
     :start_port => node[:monit][:start_port].to_i,
     :end_port => end_port,
     :email => node[:monit][:email])
-  notifies :restart, resources(:service => "monit")
+  notifies :reload, resources(:service => "monit")
 end
