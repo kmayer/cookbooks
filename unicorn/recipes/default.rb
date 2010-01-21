@@ -15,7 +15,7 @@ directory "/etc/unicorn" do
 end
 
 template "/etc/init.d/unicorn" do
-  source "/etc/init.d/unicorn-init.sh.erb"
+  source "unicorn-init.sh.erb"
   owner "root"
   group "root"
   mode "755"
