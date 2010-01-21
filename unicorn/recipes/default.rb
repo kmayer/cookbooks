@@ -2,6 +2,11 @@ gem_package "unicorn" do
   action :upgrade
 end
 
+service "unicorn" do
+  supports :start => true, :stop => true, :restart => true, :reload => true
+  action :enable
+end
+
 directory "/etc/unicorn" do
   owner "root"
   group "root"
@@ -42,9 +47,4 @@ end
 link "/usr/bin/unicorn_rails" do
   to "/usr/local/bin/unicorn_rails"
   only_if "test -f /usr/local/bin/unicorn_rails"
-end
-
-service "unicorn" do
-  supports :start => true, :restart => true, :stop => true
-  action :enable
 end
