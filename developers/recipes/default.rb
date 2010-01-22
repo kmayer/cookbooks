@@ -1,3 +1,5 @@
+include_recipe "sudoers"
+
 node[:developers][:usernames].each do |username|
   user "#{username}" do
     home "/home/#{username}"
