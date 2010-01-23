@@ -21,6 +21,6 @@ end
 
 to start an example app:
 
-  cd /var/www/current && node examples/chat/app.js
+  cd /var/www/current && node examples/chat/app.js &
 
 =end
