@@ -24,7 +24,7 @@ template "/var/www/current/config/environment.rb" do
   group "www-data"
   mode "644"
   variables :session_secret => node[:redmine][:session_secret]
-  notifies :restart, resources :service => "unicorn"
+  notifies :restart, resources(:service => "unicorn")
 end
 
 template "/var/www/current/config/database.yml" do
