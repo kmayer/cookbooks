@@ -1,3 +1,4 @@
+include_recipe "git"
 include_recipe "www-data"
 include_recipe "postfix"
 include_recipe "ruby-enterprise-edition"
@@ -9,22 +10,11 @@ include_recipe "postgresql::server"
 include_recipe "postgresql::create"
 include_recipe "postgresql::ruby-pg"
 
-remote_file "/var/www/releases/redmine-0.9.0.tar.gz" do
-  source "http://rubyforge.org/frs/download.php/68515/redmine-0.9.0.tar.gz"
-  checksum "1117365d"
-end
-
-execute "untar redmine" do
-  command "tar xzf redmine-0.9.0.tar.gz"
-  creates "/var/www/releases/redmine-0.9.0/README.rdoc"
-  cwd "/var/www/releases"
+execute "clone express" do
+  command "git clone git://github.com/edavis10/redmine.git current"
+  cwd "/var/www"
+  creates "/var/www/current/README.rdoc"
   user "www-data"
-  group "www-data"
-  action :run
-end
-
-link "/var/www/current" do
-  to "/var/www/releases/redmine-0.9.0"
 end
 
 template "/var/www/current/config/database.yml" do
