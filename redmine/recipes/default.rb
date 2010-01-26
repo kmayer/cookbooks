@@ -18,6 +18,15 @@ execute "clone express" do
   user "www-data"
 end
 
+template "/var/www/current/config/environment.rb" do
+  source "environment.rb.erb"
+  owner "www-data"
+  group "www-data"
+  mode "644"
+  variables :session_secret => node[:redmine][:session_secret]
+  notifies :restart, resources :service => "unicorn"
+end
+
 template "/var/www/current/config/database.yml" do
   source "database.yml.erb"
   owner "www-data"
