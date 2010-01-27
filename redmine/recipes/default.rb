@@ -27,6 +27,14 @@ template "/var/www/current/config/environment.rb" do
   notifies :restart, resources(:service => "unicorn")
 end
 
+template "/var/www/current/config/email.yml" do
+  source "email.yml.erb"
+  owner "www-data"
+  group "www-data"
+  mode "644"
+  variables :email_domain => node[:redmine][:email_domain]
+end
+
 template "/var/www/current/config/database.yml" do
   source "database.yml.erb"
   owner "www-data"
