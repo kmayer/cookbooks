@@ -1,0 +1,21 @@
+﻿diff -Nur percona-xtradb.orig/handler/i_s.cc percona-xtradb/handler/i_s.cc
+--- percona-xtradb.orig/handler/i_s.cc	2010-01-07 19:42:53.000000000 +0200
++++ percona-xtradb/handler/i_s.cc	2010-01-07 20:46:49.000000000 +0200
+@@ -766,7 +766,7 @@
+   dict_index_t*	index;
+   dulint		index_id;
+ 
+-  char *p;
++  const char *p;
+   char db_name_raw[NAME_LEN*5+1], db_name[NAME_LEN+1];
+   char table_name_raw[NAME_LEN*5+1], table_name[NAME_LEN+1];
+ 
+@@ -2992,7 +2993,7 @@
+ 	char**	query_str;
+ 	char*	ptr;
+ 	char	quote	= '\0';
+-	char*	command_head = "XTRA_";
++	const char*	command_head = "XTRA_";
+ 
+ 	DBUG_ENTER("i_s_innodb_admin_command_fill");
+ 
