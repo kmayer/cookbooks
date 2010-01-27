@@ -1,3 +1,7 @@
+service "chef-client" do
+  action :disable
+end
+
 remote_file "/etc/chef/packages@opscode.com.gpg.key" do
   source "packages@opscode.com.gpg.key"
 end
