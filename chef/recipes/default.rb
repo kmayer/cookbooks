@@ -10,10 +10,15 @@ template "/etc/apt/sources.list.d/opscode.list" do
   source "opscode.list.erb"
 end
 
-execute "add opscode repository key and update apt sources" do
-  command "apt-key add packages@opscode.com.gpg.key && apt-get update"
+execute "add opscode repository key" do
+  command "apt-key add packages@opscode.com.gpg.key"
   cwd "/etc/chef"
   not_if "apt-key list | grep 83EF826A"
+end
+
+execute "update repository" do
+  command "apt-get update"
+  not_if "test -f /var/lib/apt/lists/apt.opscode.com_dists_karmic_Release"
 end
 
 =begin
