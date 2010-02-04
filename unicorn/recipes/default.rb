@@ -2,6 +2,13 @@ gem_package "unicorn" do
   action :upgrade
 end
 
+template "/etc/init.d/unicorn" do
+  source "unicorn-init.sh.erb"
+  owner "root"
+  group "root"
+  mode "755"
+end
+
 service "unicorn" do
   supports :start => true, :stop => true, :restart => true, :reload => true
   action :enable
@@ -12,13 +19,6 @@ directory "/etc/unicorn" do
   group "root"
   mode "755"
   action :create
-end
-
-template "/etc/init.d/unicorn" do
-  source "unicorn-init.sh.erb"
-  owner "root"
-  group "root"
-  mode "755"
 end
 
 template "/etc/unicorn/app.rb" do
