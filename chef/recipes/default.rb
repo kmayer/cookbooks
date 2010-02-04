@@ -1,4 +1,5 @@
 service "chef-client" do
+  supports :restart => true, :reload => true, :status => true
   action :disable
 end
 
