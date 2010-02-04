@@ -1,4 +1,5 @@
 package "nginx" do
+  options "--option Dpkg::Options::=\"--force-confnew\""
   action :upgrade
 end
 
@@ -18,6 +19,16 @@ end
 
 link "/etc/nginx/sites-enabled/app" do
   to "/etc/nginx/sites-available/app"
+end
+
+link "/etc/nginx/ssl.cert" do
+  to "/etc/nginx/cert.pem"
+  only_if "test -f /etc/nginx/cert.pem"
+end
+
+link "/etc/nginx/ssl.key" do
+  to "/etc/nginx/cert.key"
+  only_if "test -f /etc/nginx/cert.key"
 end
 
 remote_file "/etc/nginx/ssl.cert" do

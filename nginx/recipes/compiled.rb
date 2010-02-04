@@ -7,7 +7,7 @@ end
 remote_file "/usr/src/nginx-#{node[:nginx][:version]}.tar.gz" do
   source "http://sysoev.ru/nginx/nginx-#{node[:nginx][:version]}.tar.gz"
   mode "644"
-  checksum "5705d08a"
+  checksum "c9f0ccaf"
 end
 
 execute "untar nginx" do
@@ -18,7 +18,6 @@ execute "untar nginx" do
 end
 
 execute "configure nginx" do
-  unless File.exist? '/usr/local/nginx/sbin/nginx'
     command <<-EOH
       ./configure \
        --prefix=/usr \
@@ -37,9 +36,6 @@ execute "configure nginx" do
        --with-http_ssl_module \
        --with-http_gzip_static_module
     EOH
-  else
-    command "./configure --with-http_ssl_module"
-  end
   cwd "/usr/src/nginx-#{node[:nginx][:version]}"
   creates "/usr/src/nginx-#{node[:nginx][:version]}/objs/Makefile"
   action :run
