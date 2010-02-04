@@ -1,6 +1,6 @@
 service "sshd" do
   service_name "ssh"
-  supports :restart => true, :reload => true
+  supports :restart => true, :reload => true, :status => true
 end
 
 execute "Disable sshd password authentication" do
