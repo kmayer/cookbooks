@@ -49,6 +49,6 @@ template "/etc/init.d/hq-agent" do
 end
 
 service "hq-agent" do
-  supports :start => true, :stop => true
+  supports :start => true, :stop => true, :restart => true, :status => true
   action [:enable, :start]
 end
