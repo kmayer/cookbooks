@@ -14,7 +14,11 @@ execute "clone rubinius" do
 end
 
 execute "configure rubinius" do
-  command "./configure --prefix /usr/local"
+  command "./configure --prefix /usr/local \
+    --bindir /usr/local/bin \
+    --includedir /usr/local/include \
+    --libdir /usr/local/lib \
+    --mandir /usr/local/man"
   cwd "/usr/src/rubinius"
   creates "/usr/src/rubinius/config.rb"
 end
@@ -28,5 +32,5 @@ end
 execute "install rubinius" do
   command "rake install"
   cwd "/usr/src/rubinius"
-  creates "/usr/local/rubinius/bin/rbx"
+  creates "/usr/local/bin/rbx"
 end
