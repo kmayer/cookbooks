@@ -1,6 +1,7 @@
 service "chef-client" do
   supports :restart => true, :reload => true, :status => true
   action :disable
+  only_if "test -f /etc/init.d/chef-client"
 end
 
 remote_file "/etc/chef/packages@opscode.com.gpg.key" do

@@ -5,7 +5,7 @@ end
 
 service "nginx" do
   supports :status => true, :restart => true, :reload => true
-  action [:enable, :start]
+  action :enable
 end
 
 directory "/var/www/nginx-default" do
