@@ -11,7 +11,7 @@ include_recipe "postgresql::server"
 include_recipe "postgresql::create"
 include_recipe "postgresql::ruby-pg"
 
-execute "clone express" do
+execute "clone redmine" do
   command "git clone git://github.com/edavis10/redmine.git current"
   cwd "/var/www"
   creates "/var/www/current/README.rdoc"
