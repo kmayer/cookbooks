@@ -1,6 +1,6 @@
-# Heavy Water Cookbook
+# Heavy Water Cookbooks
 
-**WARNING: This cookbook destroys computers. Be sure to understand every line before running. Unexpected things will happen anyway.**
+**WARNING: These cookbooks destroy computers. Be sure to understand every line before running. Unexpected things will happen anyway.**
 
 ## Install Chef and build tools on Ubuntu 9.10 (Karmic)
 
