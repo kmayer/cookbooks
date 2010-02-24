@@ -1,0 +1,98 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:           beanstalkd
+# Required-Start:     $local_fs $network
+# Required-Stop:      $local_fs
+# Default-Start:      2 3 4 5
+# Default-Stop:       0 1 6
+# Short-Description:  fast, distributed, in-memory message queue
+# Description:        this file should be used to start and stop beanstalkd
+### END INIT INFO
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+DAEMON=/usr/bin/beanstalkd
+NAME=beanstalkd
+ENABLED=0
+
+test -x $DAEMON || exit 0
+
+PIDFILE=/var/run/$NAME.pid
+
+# Include beanstalkd defaults if available
+if [ -f /etc/default/beanstalkd ] ; then
+	. /etc/default/beanstalkd
+fi
+
+test "$ENABLED" != "0" || exit 0
+
+# include init functions so we can use functions like
+# log_daemon_msg instead of echo
+. /lib/lsb/init-functions
+
+beanstalkd_start()
+{
+  start-stop-daemon --start --pidfile "$PIDFILE" \
+    --exec $DAEMON --make-pidfile --background -- \
+    -l $BEANSTALKD_ADDR -p $BEANSTALKD_PORT \
+    -u $BEANSTALKD_USER || return 2
+  return 0
+}
+
+beanstalkd_stop()
+{
+  start-stop-daemon --stop --user $BEANSTALKD_USER \
+    --pidfile "$PIDFILE" || return 2
+  rm -f $PIDFILE
+  return 0
+}
+
+case "$1" in
+  start)
+    log_daemon_msg "Starting beanstalkd" "beanstalkd"
+    beanstalkd_start
+    case "$?" in
+      0)
+      log_end_msg 0
+      ;;
+      1)
+      log_end_msg 1
+      echo "pid file '$PIDFILE' found, beanstalkd not started."
+      ;;
+      2)
+      log_end_msg 1
+      ;;
+    esac
+    ;;
+  stop)
+    log_daemon_msg "Stopping beanstalkd" "beanstalkd"
+    beanstalkd_stop
+    case "$?" in
+      0|1)
+        log_end_msg 0
+        ;;
+      2)
+        log_end_msg 1
+        ;;
+    esac
+  ;;
+  restart|force-reload)
+    log_daemon_msg "Restarting beanstalkd" "beanstalkd"
+    beanstalkd_start
+    sleep 1
+    beanstalkd_stop
+    case "$?" in
+      0)
+        log_end_msg 0
+        ;;
+      1|2)
+        log_end_msg 1
+        ;;
+    esac
+    ;;
+  *)
+    echo "Usage: /etc/init.d/beanstalkd {start|stop|restart|force-reload}" >&2
+    exit 1
+    ;;
+esac
+
+exit 0
