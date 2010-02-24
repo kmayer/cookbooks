@@ -4,6 +4,13 @@ user "redis" do
   action :create
 end
 
+template "/etc/init.d/redis-server" do
+  source "init.sh.erb"
+  owner "root"
+  group "root"
+  mode "755"
+end
+
 service "redis-server" do
   supports :restart => true
   action :enable
@@ -69,13 +76,5 @@ template "/etc/redis/redis.conf" do
   owner "root"
   group "root"
   mode "644"
-  notifies :restart, resources( :service => "redis-server" )
-end
-
-template "/etc/init.d/redis-server" do
-  source "init.sh.erb"
-  owner "root"
-  group "root"
-  mode "755"
   notifies :restart, resources( :service => "redis-server" )
 end
