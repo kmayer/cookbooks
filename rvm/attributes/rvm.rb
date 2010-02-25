@@ -1,0 +1,1 @@
+set_unless[:rvm][:default] = "1.9.1"
