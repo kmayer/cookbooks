@@ -16,7 +16,7 @@ end
 
 execute "install rubygems" do
   command "ruby setup.rb"
-  creates "/usr/local/bin/gem"
+  creates "/usr/bin/gem1.9.1"
   cwd "/usr/src/rubygems-#{version}"
 end
 
