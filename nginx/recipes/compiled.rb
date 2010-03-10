@@ -49,7 +49,7 @@ execute "make nginx" do
 end
 
 execute "install nginx" do
-  command "killall nginx && make install"
+  command "make install"
   cwd "/usr/src/nginx-#{node[:nginx][:version]}"
   only_if do node[:nginx][:version] > `#{node[:nginx][:path]}/nginx -v 2>&1`.strip.split('/')[1] end
   notifies :start, resources(:service => "nginx")

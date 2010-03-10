@@ -1,3 +1,5 @@
+include_recipe "xtradb::default"
+
 db_name = node[:xtradb][:db_name]
 username = node[:xtradb][:username]
 password = node[:xtradb][:password]
