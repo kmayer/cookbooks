@@ -3,7 +3,7 @@ username = node[:postgresql][:username]
 password = node[:postgresql][:password]
 
 execute "create #{username} database user" do
-  command "createuser --no-createdb --no-createrole --no-superuser #{username} && \
+  command "createuser --no-createdb --no-createrole --no-superuser --no-dropdb #{username} && \
     psql --command \"alter role #{username} with encrypted password '#{password}'\""
   user "postgres"
   not_if do 
