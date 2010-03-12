@@ -10,6 +10,8 @@ include_recipe "postgresql::ruby-pg"
 
 %w(rails will_paginate acts-as-taggable-on RedCloth).each do |g|
   gem_package g do
+    path = node[:rvm][:gem_binary]
+    gem_binary path if path
     action :upgrade
   end
 end
