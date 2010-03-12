@@ -17,6 +17,13 @@ directory "/home/rvm" do
   action :create
 end
 
+template "/home/rvm/.bashrc" do
+  source "bashrc.erb"
+  mode "644"
+  owner "rvm"
+  group "rvm"
+end
+
 execute "clone rvm repository" do
   command "git clone git://github.com/wayneeseguin/rvm.git"
   user "rvm"
