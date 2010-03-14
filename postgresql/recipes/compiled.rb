@@ -35,7 +35,7 @@ execute "install postgresql" do
   command "make install"
   cwd "/usr/src/postgresql-#{version}"
   user "root"
-  creates "/usr/src/postgresql-#{version}/src/backend/postgres"
+  creates "/usr/local/pgsql/bin/psql"
 end
 
 directory "/var/pgsql" do
