@@ -6,7 +6,7 @@ pid "/var/www/shared/pids/unicorn.pid"
 
 preload_app true
 GC.respond_to?(:copy_on_write_friendly=) and
-  GC.copy_on_write_friendly = true
+  GC.copy_on_write_friendly = <%= @cow_friendly %>
 
 before_fork do |server, worker|
   defined?(ActiveRecord::Base) and

@@ -9,6 +9,7 @@ template "/etc/init.d/unicorn" do
   owner "root"
   group "root"
   mode "755"
+  variables( :gem_home => node[:unicorn][:gem_home])
 end
 
 service "unicorn" do
@@ -28,25 +29,6 @@ template "/etc/unicorn/app.rb" do
   owner "root"
   group "root"
   mode "644"
-  notifies :restart, resources(:service => "unicorn")
-end
-
-link "/usr/bin/unicorn" do
-  to "/var/lib/gems/1.8/bin/unicorn"
-  only_if "test -f /var/lib/gems/1.8/bin/unicorn"
-end
-
-link "/usr/bin/unicorn_rails" do
-  to "/var/lib/gems/1.8/bin/unicorn_rails"
-  only_if "test -f /var/lib/gems/1.8/bin/unicorn_rails"
-end
-
-link "/usr/bin/unicorn" do
-  to "/usr/local/bin/unicorn"
-  only_if "test -f /usr/local/bin/unicorn"
-end
-
-link "/usr/bin/unicorn_rails" do
-  to "/usr/local/bin/unicorn_rails"
-  only_if "test -f /usr/local/bin/unicorn_rails"
+  variables( :cow_friendly => node[:unicorn][:cow_friendly])
+  #notifies :restart, resources(:service => "unicorn")
 end
