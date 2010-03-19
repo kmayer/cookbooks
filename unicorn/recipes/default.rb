@@ -1,15 +1,16 @@
-gem_package "unicorn" do
-  path = node[:rvm][:gem_binary]
-  gem_binary path if path
-  action :upgrade
-end
-
+env = YAML::load( `gem environment` )["RubyGems Environment"].detect { |x| x["EXECUTABLE DIRECTORY"] }
 template "/etc/init.d/unicorn" do
   source "unicorn-init.sh.erb"
   owner "root"
   group "root"
   mode "755"
-  variables( :gem_home => node[:unicorn][:gem_home])
+  variables( :gem_home => env["EXECUTABLE DIRECTORY"])
+end
+
+gem_package "unicorn" do
+  path = node[:rvm][:gem_binary]
+  gem_binary path if path
+  action :upgrade
 end
 
 service "unicorn" do
