@@ -1,0 +1,1 @@
+set_unless[:bundler][:legacy] = false
