@@ -1,10 +1,10 @@
-env = YAML::load( `gem environment` )["RubyGems Environment"].detect { |x| x["EXECUTABLE DIRECTORY"] }
+require 'rubygems'
 template "/etc/init.d/unicorn" do
   source "unicorn-init.sh.erb"
   owner "root"
   group "root"
   mode "755"
-  variables( :gem_home => env["EXECUTABLE DIRECTORY"])
+  variables( :gem_home => Gem.bindir )
 end
 
 gem_package "unicorn" do
