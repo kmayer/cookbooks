@@ -12,6 +12,13 @@ attribute "postgresql/db_name",
   :required => true,
   :default => "app"
 
+attribute "postgresql/db_host",
+  :display_name => "Database host",
+  :description => "PostgreSQL database host address",
+  :type => "string",
+  :required => true,
+  :default => "localhost"
+
 attribute "postgresql/username",
   :display_name => "Database username",
   :description => "PostgreSQL database username",
