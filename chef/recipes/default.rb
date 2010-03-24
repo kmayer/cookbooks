@@ -23,15 +23,7 @@ execute "update repository" do
   not_if "test -f /var/lib/apt/lists/apt.opscode.com_dists_karmic_Release"
 end
 
-=begin
-
-# this is a half-baked idea.
-# apparently chef doesn't like being upgraded while running.
-# suppose that part needs to be hand cranked for now.
-
 execute "upgrade chef" do
   command "apt-get upgrade ohai chef -y"
   not_if "chef-solo --version | grep #{node[:chef][:version]}"
 end
-
-=end
