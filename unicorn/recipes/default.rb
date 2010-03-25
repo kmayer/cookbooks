@@ -1,10 +1,11 @@
-require 'rubygems'
+# This deliberately uses a bare ruby, so whatever is in the search path is used
+gem_bindir = `ruby -rubygems -e 'puts Gem.bindir'`
 template "/etc/init.d/unicorn" do
   source "unicorn-init.sh.erb"
   owner "root"
   group "root"
   mode "755"
-  variables( :gem_home => Gem.bindir )
+  variables( :gem_home => gem_bindir.chomp )
 end
 
 gem_package "unicorn" do
